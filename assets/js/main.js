@@ -2,7 +2,7 @@
 const showMenu = (toggleId, navId) =>{
     const toggle = document.getElementById(toggleId),
     nav = document.getElementById(navId)
-    
+     
     // Validate that variables exist
     if(toggle && nav){
         toggle.addEventListener('click', ()=>{
@@ -51,6 +51,40 @@ function scrollHeader(){
 }
 window.addEventListener('scroll', scrollHeader)
 
+
+/*=============== QUESTIONS ACCORDION ===============*/
+const accordionItems = document.querySelectorAll('.questions__item')
+
+accordionItems.forEach((item) =>{
+    const accordionHeader = item.querySelector('.questions__header')
+
+    accordionHeader.addEventListener('click', () =>{
+        const openItem = document.querySelector('.accordion-open')
+
+        toggleItem(item)
+
+        if(openItem && openItem!== item){
+            toggleItem(openItem)
+        }
+    })
+})
+
+const toggleItem = (item) =>{
+    const accordionContent = item.querySelector('.questions__content')
+
+    if(item.classList.contains('accordion-open')){
+        accordionContent.removeAttribute('style')
+        item.classList.remove('accordion-open')
+    }else{
+        accordionContent.style.height = accordionContent.scrollHeight + 'px'
+        item.classList.add('accordion-open')
+    }
+
+}
+
+
+
+
 /*==================== SHOW SCROLL TOP ====================*/ 
 function scrollTop(){
     const scrollTop = document.getElementById('scroll-top');
@@ -96,7 +130,7 @@ const sr = ScrollReveal({
     reset: true,
 });
 
-sr.reveal(`.home__data, .home__img, 
+sr.reveal(`.home__data, .homeImg, .home__img, 
            .decoration__data,
            .accessory__content,
            .footer__content`, {
